@@ -144,6 +144,9 @@ Layihə `deploy/` qovluğunda iki hazır konfiqurasiya var (hər ikisi `sudo` t�
 |---|---|
 | `deploy/musahibe.service` | systemd — server avtomatik qalxsın və çökəndə yenidən başlasın |
 | `deploy/musahibe.azerenerji.az.conf` | Apache reverse proxy — `:5000` portsuz, adi `http://musahibe.azerenerji.az` |
+| `Dockerfile` | Konteyner image-i |
+| `k8s/musahibe.yaml` | Kubernetes: Namespace `interview`, Deployment, Service, Istio Gateway + VirtualService |
+| `k8s/secret.example.yaml` | Konfiqurasiya Secret-inin nümunəsi (real variantı `.gitignore`-dadır) |
 
 Quraşdırma addımları hər faylın öz başlığında yazılıb.
 
@@ -255,3 +258,67 @@ Səhifə **yalnız oxuyur**:
 - Müsahibə bitəndə göstərici "Bitdi" olur və sorğular dayanır
 
 Sadə HR bu ünvana girsə `403`, giriş etməyibsə `401` alır.
+
+---
+
+## 12. Kubernetes ilə yerləşdirmə
+
+| | |
+|---|---|
+| Namespace | `interview` |
+| Domen | `musahibe.azerenerji.az` |
+| Image | `azerenerjirepo/musahibe:v1.0.0` |
+| Replica | 3 (tətbiq stateless-dir — bütün vəziyyət MySQL-dədir) |
+
+### 1) Image-i qurun və registry-yə göndərin
+
+```bash
+docker build -t azerenerjirepo/musahibe:v1.0.0 .
+docker push azerenerjirepo/musahibe:v1.0.0
+```
+
+`.dockerignore` `.env`, `.venv/` və k8s secret fayllarını image-dən kənarlaşdırır.
+
+### 2) Konfiqurasiya Secret-i
+
+**Credentiallar manifestdə deyil, Secret-dədir.** Ən sadə yol — yerli `.env`-dən:
+
+```bash
+kubectl create namespace interview
+kubectl -n interview create secret generic musahibe-env --from-file=.env=./.env
+```
+
+Declarative istəyirsinizsə `k8s/secret.example.yaml`-ı `k8s/secret.yaml` kimi
+kopyalayıb doldurun — həmin ad `.gitignore`-dadır.
+
+### 3) TLS sertifikatı
+
+```bash
+kubectl -n istio-system create secret tls musahibe-tls \
+  --cert=musahibe.crt --key=musahibe.key
+```
+
+### 4) Tətbiqi qurun
+
+```bash
+kubectl apply -f k8s/musahibe.yaml
+kubectl -n interview rollout status deployment/musahibe
+```
+
+Secret dəyişdikdən sonra pod-lar yenidən başladılmalıdır:
+
+```bash
+kubectl -n interview rollout restart deployment/musahibe
+```
+
+### Manifestdəki iki kritik detal
+
+**`ndots: 1`** — Kubernetes defolt olaraq `ndots:5` qoyur. `api.anthropic.com`
+iki nöqtəlidir, ona görə resolver əvvəlcə bütün daxili search domenlərini sınayır
+(`api.anthropic.com.interview.svc.cluster.local` və s.) — hər AI çağırışına
+onlarla artıq DNS sorğusu düşür və aralıq `Temporary failure in name resolution`
+xətaları yaranır.
+
+**Service portunun adı `http`-dir, `https` deyil** — Istio protokolu məhz port
+adına görə seçir. Tətbiq 5000-də plain HTTP danışır, TLS-i Gateway sonlandırır.
+Adı `https` yazılsa bütün sorğular sınır.

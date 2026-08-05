@@ -1,0 +1,26 @@
+# Credentiallar — image-ə HEÇ VAXT daxil edilmir
+.env
+.env.*
+!.env.example
+k8s/secret.yaml
+k8s/secret*.yaml
+!k8s/secret.example.yaml
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Git və redaktor
+.git/
+.gitignore
+*.swp
+
+# Loglar
+*.log
+
+# Sənədlər və deploy konfiqurasiyaları image-də lazım deyil
+README.md
+deploy/
+k8s/

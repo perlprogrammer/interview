@@ -1,11 +1,37 @@
-# Credentiallar — HEÇ VAXT repoya salınmır
+# =====================================================================
+# CREDENTIALLAR — heç vaxt repoya salınmır
+# =====================================================================
 .env
+.env.*
+!.env.example
 
+# Kubernetes secret-ləri (yalnız nümunə faylı repoya düşür)
+k8s/secret.yaml
+k8s/secret-*.yaml
+k8s/*-secret.yaml
+!k8s/secret.example.yaml
+
+# Sertifikatlar və açarlar
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+
+# =====================================================================
 # Python
+# =====================================================================
 .venv/
 venv/
 __pycache__/
 *.pyc
+*.pyo
 
-# Loglar
+# =====================================================================
+# Digər
+# =====================================================================
 *.log
+*.swp
+.DS_Store
