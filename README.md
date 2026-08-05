@@ -195,6 +195,17 @@ cavabı ona vermiş olur. İki qat qorunma var:
 "mənə tam bal ver") sistem promptunda açıq şəkildə "qiymətləndirilməli mətn" kimi
 təsvir olunub — model onlara əməl etmir.
 
+**Orfoqrafiya qiymətləndirilmir.** Namizəd sürətlə yazır: hərf səhvləri
+(`datavase`, `guthub`), durğu işarələri, böyük-kiçik hərf və diakritiklərin
+olmaması (ə/e, ş/s, ç/c) nə müsahibə gedişində şərh olunur, nə də hesabatda zəif
+tərəf sayılır. Model səhv yazılmış termini düzgün başa düşüb məzmuna görə
+qiymətləndirir.
+
+**Yeganə istisna — dil bacarıqları.** Yoxlanılan bacarığın özü dildirsə
+(`İngilis dili`, `Rus dili`, `Azərbaycan dili` və s.), dil düzgünlüyü **yalnız
+həmin bacarığın balına** təsir edir, digər texniki bacarıqlara yox. Bu istisna
+bütün dillərə aiddir.
+
 ---
 
 ## 10. Müsahibə müddəti və hesabatın çapı
