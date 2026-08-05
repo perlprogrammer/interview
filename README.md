@@ -4,6 +4,8 @@ Namizədə bacarıqları və 1–10 arası səviyyələri təyin olunur; Claude 
 səviyyəyə uyğun texniki müsahibə aparır və HR üçün strukturlaşdırılmış hesabat
 hazırlayır.
 
+> Biznes planı, xərc hesablaması və yol xəritəsi: **[BIZNES-PLAN.md](BIZNES-PLAN.md)**
+
 - **Backend:** Python `http.server` (çərçivəsiz), port 5000
 - **AI:** Anthropic Claude (`claude-opus-5`)
 - **Baza:** MySQL — `musahibe` (SQLite istifadə olunmur; bütün vəziyyət bazadadır)
