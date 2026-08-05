@@ -22,5 +22,7 @@ __pycache__/
 
 # Sənədlər və deploy konfiqurasiyaları image-də lazım deyil
 README.md
+BIZNES-PLAN.md
 deploy/
 k8s/
+docs/
