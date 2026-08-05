@@ -1,0 +1,11 @@
+# Credentiallar — HEÇ VAXT repoya salınmır
+.env
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Loglar
+*.log

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Müsahibə — Admin Panel</title>
+<link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+
+<!-- ================= GİRİŞ ================= -->
+<section id="login-view" class="login-wrap hidden">
+  <form id="login-form" class="login-card">
+    <h1>Müsahibə Paneli</h1>
+    <p class="muted">Davam etmək üçün daxil olun</p>
+    <label>İstifadəçi adı
+      <input id="login-username" autocomplete="username" required>
+    </label>
+    <label>Parol
+      <input id="login-password" type="password" autocomplete="current-password" required>
+    </label>
+    <div id="login-error" class="error"></div>
+    <button type="submit" class="btn btn-primary block" id="login-btn">Daxil ol</button>
+    <p class="reg-foot muted">
+      Hesab yalnız Baş HR mütəxəssis tərəfindən paneldən yaradılır.
+    </p>
+  </form>
+</section>
+
+<!-- ================= PANEL ================= -->
+<section id="app-view" class="hidden">
+  <header class="topbar">
+    <div class="brand">Müsahibə Paneli</div>
+    <div class="topbar-right">
+      <span id="who" class="muted"></span>
+      <span id="who-role" class="role-chip"></span>
+      <button id="users-btn" class="btn btn-ghost hidden">İstifadəçilər</button>
+      <button id="logout-btn" class="btn btn-ghost">Çıxış</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Yeni namizəd -->
+    <aside class="panel">
+      <div class="panel-head">
+        <h2 id="form-title">Yeni namizəd</h2>
+        <button type="button" id="cancel-edit" class="btn btn-ghost btn-sm hidden">
+          Ləğv et
+        </button>
+      </div>
+      <form id="candidate-form">
+        <div class="row2">
+          <label>Ad <input id="first-name" required></label>
+          <label>Soyad <input id="last-name" required></label>
+        </div>
+        <div class="row2">
+          <label>Vəzifə
+            <input id="role" placeholder="məs. Backend Developer" required>
+          </label>
+          <label>Müddət (dəqiqə)
+            <input id="duration" type="number" min="1" max="180" value="15" required>
+          </label>
+        </div>
+
+        <div class="skills-head">
+          <span>Bacarıqlar və səviyyələr</span>
+        </div>
+        <div class="skill-add">
+          <input id="skill-input" placeholder="Bacarıq adı (məs. Python)">
+          <button type="button" id="skill-add-btn" class="btn btn-secondary">Əlavə et</button>
+        </div>
+        <div id="skill-list" class="skill-list"></div>
+
+        <button type="submit" class="btn btn-primary block" id="create-btn">
+          Namizədi yarat
+        </button>
+        <p id="edit-note" class="edit-note hidden">
+          Müsahibə hələ başlamayıb — bütün məlumatları dəyişə bilərsiniz.
+          Namizədin linki dəyişmir.
+        </p>
+      </form>
+    </aside>
+
+    <!-- Siyahı -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Namizədlər</h2>
+        <button id="refresh-btn" class="btn btn-ghost">Yenilə</button>
+      </div>
+      <div class="table-wrap">
+        <table id="candidates-table">
+          <thead>
+            <tr>
+              <th>Namizəd</th><th>Vəzifə</th><th>Bacarıqlar</th>
+              <th>Müddət</th><th>Status</th><th>Bal</th><th class="right">Əməliyyat</th>
+            </tr>
+          </thead>
+          <tbody id="candidates-tbody"></tbody>
+        </table>
+        <p id="empty-state" class="muted center hidden">Hələ namizəd yoxdur.</p>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ================= HESABAT ================= -->
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-tools">
+      <button id="modal-print" class="btn btn-secondary btn-sm">Çap / PDF</button>
+      <button id="modal-close" class="modal-close" aria-label="Bağla">&times;</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============== İSTİFADƏÇİLƏR (yalnız Baş HR) ============== -->
+<div id="users-modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-tools">
+      <button id="users-close" class="modal-close" aria-label="Bağla">&times;</button>
+    </div>
+
+    <h2 class="users-title">İstifadəçilər</h2>
+    <p class="muted users-hint">
+      Hesablar yalnız buradan yaradılır — açıq qeydiyyat səhifəsi yoxdur.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ad Soyad</th><th>İstifadəçi adı</th><th>Rol</th>
+            <th>Son giriş</th><th class="right"></th>
+          </tr>
+        </thead>
+        <tbody id="users-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="rep-section">
+      <h3>Yeni istifadəçi</h3>
+      <form id="user-form">
+        <div class="row2">
+          <label>Ad və Soyad <input id="u-name" required></label>
+          <label>İstifadəçi adı
+            <input id="u-username" required placeholder="kiçik hərflər, rəqəm">
+          </label>
+        </div>
+        <div class="row2">
+          <label>Parol (ən azı 8 simvol)
+            <input id="u-password" type="password" required minlength="8">
+          </label>
+          <label>Rol
+            <select id="u-role">
+              <option value="hr">HR mütəxəssis</option>
+              <option value="bas_hr">Baş HR mütəxəssis</option>
+            </select>
+          </label>
+        </div>
+        <div id="user-error" class="error"></div>
+        <button type="submit" class="btn btn-primary" id="user-btn">İstifadəçi yarat</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="/admin/app.js"></script>
+</body>
+</html>

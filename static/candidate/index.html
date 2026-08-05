@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Texniki Müsahibə</title>
+<link rel="stylesheet" href="/candidate/style.css">
+</head>
+<body>
+
+<div id="state" class="state">
+  <div class="spinner"></div>
+  <p>Müsahibə hazırlanır…</p>
+</div>
+
+<div id="chat-view" class="hidden">
+  <header class="topbar">
+    <div>
+      <div class="title">Texniki Müsahibə</div>
+      <div class="subtitle" id="subtitle"></div>
+    </div>
+    <div class="head-right">
+      <div class="timer hidden" id="timer">
+        <span class="timer-label">Qalan vaxt</span>
+        <span class="timer-value" id="timer-value">--:--</span>
+      </div>
+      <div class="skills" id="skills"></div>
+    </div>
+  </header>
+
+  <main id="log" class="log"></main>
+
+  <footer class="composer">
+    <div id="done-note" class="done-note hidden">
+      Müsahibə tamamlandı. Vaxtınız üçün təşəkkür edirik.
+    </div>
+    <div id="input-row" class="input-row">
+      <textarea id="input" rows="1" placeholder="Cavabınızı yazın…"></textarea>
+      <button id="send" class="send">Göndər</button>
+    </div>
+    <div class="hint">Enter — göndər · Shift+Enter — yeni sətir</div>
+  </footer>
+</div>
+
+<script src="/candidate/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canlı izləmə — Müsahibə</title>
+<link rel="stylesheet" href="/candidate/style.css">
+<link rel="stylesheet" href="/watch/style.css">
+</head>
+<body>
+
+<div id="state" class="state">
+  <div class="spinner"></div>
+  <p>Müsahibə yüklənir…</p>
+</div>
+
+<div id="view" class="hidden">
+  <header class="topbar">
+    <div>
+      <div class="title">Canlı izləmə</div>
+      <div class="subtitle" id="subtitle"></div>
+    </div>
+    <div class="head-right">
+      <div class="live" id="live"><span class="live-dot"></span><span id="live-text">Canlı</span></div>
+      <div class="timer hidden" id="timer">
+        <span class="timer-label">Qalan vaxt</span>
+        <span class="timer-value" id="timer-value">--:--</span>
+      </div>
+      <div class="skills" id="skills"></div>
+    </div>
+  </header>
+
+  <div class="observer-bar">
+    İzləmə rejimi — müdaxilə etmək mümkün deyil. Namizəd sizi görmür.
+  </div>
+
+  <main id="log" class="log"></main>
+
+  <footer class="composer">
+    <div class="watch-foot">
+      <span id="status-note">Müsahibə davam edir…</span>
+
+      <div class="extend" id="extend-box">
+        <span class="extend-label">Vaxtı artır</span>
+        <input id="extend-min" type="number" min="1" max="60" value="5" aria-label="Dəqiqə">
+        <span class="extend-unit">dəq</span>
+        <button id="extend-btn" class="btn-ext">Artır</button>
+        <span id="extend-msg" class="extend-msg"></span>
+      </div>
+
+      <a class="btn-back" href="/admin/">← Panelə qayıt</a>
+    </div>
+  </footer>
+</div>
+
+<script src="/watch/app.js"></script>
+</body>
+</html>
