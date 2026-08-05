@@ -357,7 +357,7 @@ function renderCandidates(candidates) {
     return `<tr>
       <td>${esc(candidate.first_name)} ${esc(candidate.last_name)}</td>
       <td>${esc(candidate.role)}</td>
-      <td>${skills}</td>
+      <td class="skills-cell">${skills}</td>
       <td class="nowrap">${candidate.duration_minutes} dəq</td>
       <td><span class="badge ${statusClass}">${statusText}</span>${lockIcon}</td>
       <td>${score}</td>

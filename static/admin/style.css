@@ -308,7 +308,7 @@ tbody tr:last-child { border-bottom: none; }
   color: #d8b4fe;
 }
 
-.reg-foot { margin: 18px 0 0; text-align: center; font-size: 13px; }
+.login-card .reg-foot { margin: 20px 0 0; text-align: center; font-size: 13px; }
 
 /* İstifadəçilər pəncərəsi */
 .users-title { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
@@ -601,3 +601,14 @@ tbody tr:last-child { border-bottom: none; }
   border-color: rgba(239, 68, 68, .58);
   box-shadow: 0 0 14px rgba(239, 68, 68, .26);
 }
+
+/* Bacarıqlar sütunu genişlənəndə əməliyyat düymələrini kadrdan çıxarırdı —
+   sütunu məhdudlaşdırıb əməliyyat sütununu sağa "yapışdırırıq". */
+.skills-cell { max-width: 300px; }
+
+th:last-child, td:last-child {
+  position: sticky; right: 0;
+  background: #101838;
+  box-shadow: -12px 0 14px -10px rgba(0, 0, 0, .65);
+}
+tbody tr:hover td:last-child { background: #16204a; }

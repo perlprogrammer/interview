@@ -68,8 +68,17 @@ async function syncTiming() {
     if (!response.ok) return;
     const info = await response.json();
 
-    // Serverdə yaranmış yeni mesajlar (məs. vaxtın bitməsi bildirişi)
-    (info.messages || []).slice(shownCount).forEach((m) => addMessage(m.role, m.content));
+    // Serverlə uyğunlaşdırma. Sadəcə `slice(shownCount)` etmək olmaz: müsahibə
+    // başlayanda server sintetik açılış mesajı yaradır, brauzer isə onu
+    // göstərmir — sayğaclar sürüşür və sonuncu mesaj təkrarlanırdı.
+    // Fərq görünəndə yazışma serverdəki vəziyyətə görə yenidən qurulur;
+    // bu, bir dəfə işə düşür və sürüşməni birdəfəlik aradan qaldırır.
+    const messages = info.messages || [];
+    if (messages.length !== shownCount) {
+      el("log").innerHTML = "";
+      shownCount = 0;
+      messages.forEach((m) => addMessage(m.role, m.content));
+    }
 
     if (info.status === "completed") { markFinished(); return; }
     if (info.timing) applyTiming(info.timing);
