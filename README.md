@@ -281,14 +281,14 @@ Sadə HR bu ünvana girsə `403`, giriş etməyibsə `401` alır.
 |---|---|
 | Namespace | `interview` |
 | Domen | `musahibe.azerenerji.az` |
-| Image | `azerenerjirepo/musahibe:v1.1.0` |
+| Image | `azerenerjirepo/musahibe:v1.2.0` |
 | Replica | 3 (tətbiq stateless-dir — bütün vəziyyət MySQL-dədir) |
 
 ### 1) Image-i qurun və registry-yə göndərin
 
 ```bash
-docker build -t azerenerjirepo/musahibe:v1.1.0 .
-docker push azerenerjirepo/musahibe:v1.1.0
+docker build -t azerenerjirepo/musahibe:v1.2.0 .
+docker push azerenerjirepo/musahibe:v1.2.0
 ```
 
 `.dockerignore` `.env`, `.venv/` və k8s secret fayllarını image-dən kənarlaşdırır.

@@ -64,7 +64,7 @@ spec:
           value: "1"
       containers:
       - name: musahibe
-        image: azerenerjirepo/musahibe:v1.1.0
+        image: azerenerjirepo/musahibe:v1.2.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
